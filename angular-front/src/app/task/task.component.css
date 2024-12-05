@@ -1,0 +1,103 @@
+/* Style global du conteneur */
+.task-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: #f9f9f9;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Zone d'ajout de tâches */
+.task-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.task-input input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.task-input input:focus {
+  border-color: #007bff;
+}
+
+.task-input button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background: #007bff;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.task-input button:hover {
+  background: #0056b3;
+}
+
+/* Liste des tâches */
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.task-list li:hover {
+  background: #f1f1f1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-list li.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Bouton de suppression */
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #ff4d4d;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.delete-btn:hover {
+  color: #e60000;
+}
+
+span {
+  cursor: pointer;
+  flex: 1;
+  text-align: left;
+}
