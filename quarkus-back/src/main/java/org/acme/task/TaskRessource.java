@@ -14,6 +14,7 @@ import jakarta.ws.rs.WebApplicationException;
 
 @Path("/task")
 public class TaskRessource {
+
     @GET
     public List<Task> findAll() {
         return Task.findAll().list();
@@ -55,7 +56,7 @@ public class TaskRessource {
     @Transactional
     public void delete(@PathParam("id") Long id) {
         boolean deleted = Task.deleteById(id);
-        if (!deleted) {
+        if (deleted == false) {
             throw new WebApplicationException("Task with id " + id + " does not exist.", 404);
         }
     }

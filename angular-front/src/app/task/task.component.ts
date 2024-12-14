@@ -1,13 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-type Task = {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-};
+import { Task } from './task.type';
+import { TaskService } from './task.service';
 
 @Component({
   selector: 'app-task',
@@ -15,21 +10,35 @@ type Task = {
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit {
   tasks: Task[] = [];
   newTitle: string = '';
   newDescription = '';
 
+  constructor(private taskService: TaskService) {}
+
   addTask() {
-    if (this.newTitle.trim()) {
-      this.tasks.push({
-        id: Date.now(),
-        title: this.newTitle,
-        description: this.newDescription,
-        completed: false,
-      });
-      this.newTitle = '';
-      this.newDescription = '';
+    if (this.newTitle.trim().length > 0) {
+      // this.tasks.push({
+      //   id: Date.now(),
+      //   title: this.newTitle,
+      //   description: this.newDescription,
+      //   completed: false,
+      // });
+      this.taskService
+        .add({
+          title: this.newTitle,
+          description: this.newDescription,
+          completed: false,
+        })
+        .subscribe({
+          next: (newTask) => {
+            // newTask : Task creer retourné par l'API
+            this.tasks.push(newTask);
+            this.newTitle = '';
+            this.newDescription = '';
+          },
+        });
     }
   }
 
@@ -40,5 +49,29 @@ export class TaskComponent {
   toggleTask(task: Task) {
     task.completed = !task.completed;
   }
-  
+
+  ngOnInit() {
+    this.taskService.findAll().subscribe({
+      next: (data) => {
+        this.tasks = data; // Remplir le tableau des tâches
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des tâches :', error);
+      },
+    });
+  }
 }
+
+type Sub = {
+  next: (value: string) => void;
+};
+function subscribe(sub: Sub) {
+  sub.next('eto le donnee azoo avy amle api');
+}
+
+subscribe({
+  next: (value) => {
+    console.log('nahazo donnee zah');
+    // console.log(value)
+  },
+});
