@@ -14,7 +14,8 @@ export class TaskComponent implements OnInit {
   tasks: Task[] = [];
   newTitle: string = '';
   newDescription = '';
-
+  editingTask: Task | null = null;
+  
   constructor(private taskService: TaskService) {}
 
   addTask() {
@@ -51,6 +52,14 @@ export class TaskComponent implements OnInit {
         console.log("erreur de la suppresssion : " + error);
       }
     });
+  }
+
+  updateTask(id : number, task : Task){
+    this.taskService.updtade(id, task).subscribe({
+      
+    })
+
+    
   }
 
   toggleTask(task: Task) {

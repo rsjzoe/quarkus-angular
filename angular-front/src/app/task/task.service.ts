@@ -20,4 +20,8 @@ export class TaskService {
   delete(id : number){
     return this.http.delete<Task>(`${this.apiUrl}/${id}`);
   }
+
+  updtade(id : number,  task : Task){
+    return this.http.put<Task>(`${this.apiUrl}/${id}`, task);
+  }
 }

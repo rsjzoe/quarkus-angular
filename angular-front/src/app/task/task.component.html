@@ -16,8 +16,16 @@
 
   <ul class="task-list">
     <li *ngFor="let task of tasks" [class.completed]="task.completed">
-      <span (click)="toggleTask(task)">{{ task.title }} - {{task.description}} {{task.completed ? "completed" : ""}}</span>
-      <button class="delete-btn" (click)="deleteTask(task.id)">✖</button>
+
+      <ng-template #viewMode>
+        <span (click)="toggleTask(task)"
+          >{{ task.title }} - {{ task.description }}
+          {{ task.completed ? "completed" : "" }}</span
+        >
+        <button class="delete-btn" (click)="deleteTask(task.id)">✖</button>
+        <button class="btn-update">updtade</button>
+      </ng-template>
+      
     </li>
   </ul>
 </div>
