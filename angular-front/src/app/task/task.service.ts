@@ -16,4 +16,8 @@ export class TaskService {
   add(task: CreateTask) {
     return this.http.post<Task>(this.apiUrl, task);
   }
+
+  delete(id : number){
+    return this.http.delete<Task>(`${this.apiUrl}/${id}`);
+  }
 }

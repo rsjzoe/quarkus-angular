@@ -43,7 +43,14 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTask(id: number) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.taskService.delete(id).subscribe({
+      next: () => {
+        this.tasks = this.tasks.filter((task) => task.id !== id);
+      },
+      error : (error)=>{
+        console.log("erreur de la suppresssion : " + error);
+      }
+    });
   }
 
   toggleTask(task: Task) {
