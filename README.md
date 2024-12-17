@@ -1,3 +1,3 @@
 # quarkus-angular
 
-todoliste avec angular et quarkus
+todolist avec angular et quarkus
