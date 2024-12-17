@@ -14,8 +14,8 @@ export class TaskComponent implements OnInit {
   tasks: Task[] = [];
   newTitle: string = '';
   newDescription = '';
-  editingTask: Task | null = null;
-  
+  isEditing: number | null = null;
+
   constructor(private taskService: TaskService) {}
 
   addTask() {
@@ -48,18 +48,42 @@ export class TaskComponent implements OnInit {
       next: () => {
         this.tasks = this.tasks.filter((task) => task.id !== id);
       },
-      error : (error)=>{
-        console.log("erreur de la suppresssion : " + error);
-      }
+      error: (error) => {
+        console.log('erreur de la suppresssion : ' + error);
+      },
     });
   }
 
-  updateTask(id : number, task : Task){
-    this.taskService.updtade(id, task).subscribe({
-      
-    })
+  editeTask(task: Task) {
+    this.isEditing = task.id;
+    this.newTitle = task.title;
+    this.newDescription = task.description;
+  }
 
-    
+  updateTask() {
+    if (this.isEditing == null) {
+      return;
+    }
+    const updatedTask: Task = {
+      id: this.isEditing,
+      title: this.newTitle,
+      description: this.newDescription,
+      completed: false,
+    };
+
+    this.taskService.updtade(updatedTask.id, updatedTask).subscribe({
+      next: (task) => {
+        const index = this.tasks.findIndex((t) => t.id === task.id);
+        if (index !== -1) {
+          this.tasks[index] = task;
+        }
+
+        this.isEditing = null; 
+        this.newTitle = '';
+        this.newDescription = '';
+      },
+      error: (error) => console.error('Erreur lors de la mise à jour :', error),
+    });
   }
 
   toggleTask(task: Task) {
@@ -78,16 +102,16 @@ export class TaskComponent implements OnInit {
   }
 }
 
-type Sub = {
-  next: (value: string) => void;
-};
-function subscribe(sub: Sub) {
-  sub.next('eto le donnee azoo avy amle api');
-}
+// type Sub = {
+//   next: (value: string) => void;
+// };
+// function subscribe(sub: Sub) {
+//   sub.next('eto le donnee azoo avy amle api');
+// }
 
-subscribe({
-  next: (value) => {
-    console.log('nahazo donnee zah');
-    // console.log(value)
-  },
-});
+// subscribe({
+//   next: (value) => {
+//     console.log('nahazo donnee zah');
+//     // console.log(value)
+//   },
+// });

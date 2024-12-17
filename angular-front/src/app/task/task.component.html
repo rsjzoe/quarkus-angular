@@ -11,21 +11,19 @@
       placeholder="Ajouter une nouvelle Description"
       [(ngModel)]="newDescription"
     />
-    <button (click)="addTask()">Ajouter</button>
+
+    <button *ngIf="!isEditing" (click)="addTask()">Ajouter</button>
+    <button *ngIf="isEditing" (click)="updateTask()">Mettre à jour</button>
   </div>
 
   <ul class="task-list">
     <li *ngFor="let task of tasks" [class.completed]="task.completed">
-
-      <ng-template #viewMode>
-        <span (click)="toggleTask(task)"
-          >{{ task.title }} - {{ task.description }}
-          {{ task.completed ? "completed" : "" }}</span
-        >
-        <button class="delete-btn" (click)="deleteTask(task.id)">✖</button>
-        <button class="btn-update">updtade</button>
-      </ng-template>
-      
+      <span (click)="toggleTask(task)"
+        >{{ task.title }} - {{ task.description }}
+        {{ task.completed ? "completed" : "" }}</span
+      >
+      <button class="delete-btn" (click)="deleteTask(task.id)">✖</button>
+      <button class="btn-update" (click)="editeTask(task)">updtade</button>
     </li>
   </ul>
 </div>
